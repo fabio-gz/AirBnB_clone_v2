@@ -4,6 +4,7 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String, ForeignKey
 
+
 class City(BaseModel, Base):
     """This is the class for City
     Attributes:

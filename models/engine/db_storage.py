@@ -19,7 +19,6 @@ class DBStorage:
     __engine = None
     __session = None
 
-
     def __init__(self):
         """The init return the instance"""
 
@@ -47,7 +46,8 @@ class DBStorage:
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 dicty[key] = obj
         else:
-            objects = [State, City] # Place, User, Amenity, Review]
+            # Place, User, Amenity, Review
+            objects = [State, City]
             for clas in objects:
                 query = self.__session.query(clas)
                 for obj in query:
