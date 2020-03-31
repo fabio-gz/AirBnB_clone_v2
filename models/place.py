@@ -44,16 +44,9 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """Return all the reviews for this place.id"""
-            objects = models.storage.all()
-            my_list = []
+            objects = models.storage.all(Review)
             res = []
-            for key in objects:
-                city = key.replace('.', ' ')
-                city = shlex.split(city)
-                if city[0] == 'City':
-                    my_list.append(objects[key])
-            for i in my_list:
-                if i.state_id == self.id:
-                    res.append(i)
-
+            for key, value in objects.items():
+                if value.place_id == self.id:
+                    res.append(value)
             return res
