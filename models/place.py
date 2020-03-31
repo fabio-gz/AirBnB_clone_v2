@@ -2,10 +2,19 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from models.review import Review
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship, backref
 import os
 import models
+
+
+metadata = Base.metadata
+place_amenity = Table('place_amenity', metadata,
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             nullable=False, primary_key=True),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'), nullable=False,
+                             primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -36,10 +45,11 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-
     if os.getenv('HBNB_TYPE_STORAGE') == "db":
         review = relationship("Review", backref="place",
                               cascade="all, delete, delete-orphan")
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
@@ -50,3 +60,21 @@ class Place(BaseModel, Base):
                 if value.place_id == self.id:
                     res.append(value)
             return res
+
+        @property
+        def amenities(self):
+            """Getter attr that return list of Amenity instances"""
+            objects = models.storage.all(Amenity)
+            res = []
+            for key, value in objects.items():
+                if value.amenity_id == Amenity.id:
+                    res.append(value)
+            return res
+
+        @amenities.setter
+        def amenities(self, obj):
+            """Setter attr for adding Amenity.id"""
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)
+            else:
+                pass
