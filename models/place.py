@@ -2,6 +2,7 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship, backref
 
 
 class Place(BaseModel, Base):
@@ -31,3 +32,6 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    review = relationship('Review', backref="place",
+                          cascade="all, delete, delete-orphan")
