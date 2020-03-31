@@ -8,4 +8,8 @@ class Amenity(BaseModel):
     Attributes:
         name: input name
     """
-    name = ""
+    __tablename__ = 'amenities'
+
+    name = Column(String(128), nullable=False)
+
+    place_amenities = Relationship('Place', secondary=place_amenity)
