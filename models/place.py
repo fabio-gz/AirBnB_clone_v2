@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
+from models.review import Review
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship, backref
+import os
+import models
 
 
 class Place(BaseModel, Base):
@@ -33,5 +36,24 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-    review = relationship('Review', backref="place",
-                          cascade="all, delete, delete-orphan")
+
+    if os.getenv('HBNB_TYPE_STORAGE') == "db":
+        review = relationship("Review", backref="place",
+                              cascade="all, delete, delete-orphan")
+    else:
+        @property
+        def reviews(self):
+            """Return all the reviews for this place.id"""
+            objects = models.storage.all()
+            my_list = []
+            res = []
+            for key in objects:
+                city = key.replace('.', ' ')
+                city = shlex.split(city)
+                if city[0] == 'City':
+                    my_list.append(objects[key])
+            for i in my_list:
+                if i.state_id == self.id:
+                    res.append(i)
+
+            return res
