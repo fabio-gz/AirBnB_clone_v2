@@ -16,24 +16,26 @@ class State(BaseModel, Base):
 
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state",
-                          cascade="all, delete, delete-orphan")
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        cities = relationship("City", backref="state",
+                              cascade="all, delete, delete-orphan")
 
-    @property
-    def cities(self):
-        """returns the list of City instances with
-        state_id equals to the current State.id
-        """
-        objects = models.storage.all()
-        my_list = []
-        res = []
-        for key in objects:
-            city = key.replace('.', ' ')
-            city = shlex.split(city)
-            if city[0] == 'City':
-                my_list.append(objects[key])
-        for i in my_list:
-            if i.state_id == self.id:
-                res.append(i)
+    else:
+        @property
+        def cities(self):
+            """returns the list of City instances with
+            state_id equals to the current State.id
+            """
+            objects = models.storage.all()
+            my_list = []
+            res = []
+            for key in objects:
+                city = key.replace('.', ' ')
+                city = shlex.split(city)
+                if city[0] == 'City':
+                    my_list.append(objects[key])
+                for i in my_list:
+                    if i.state_id == self.id:
+                        res.append(i)
 
-        return res
+            return res
