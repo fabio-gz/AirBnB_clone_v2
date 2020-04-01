@@ -6,7 +6,7 @@ from models.base_model import Base
 from models.city import City
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
-import shlex
+import os
 
 
 class State(BaseModel, Base):
