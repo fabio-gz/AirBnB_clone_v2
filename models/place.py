@@ -10,10 +10,15 @@ import models
 
 metadata = Base.metadata
 place_amenity = Table('place_amenity', metadata,
-                      Column('place_id', String(60), ForeignKey('places.id'),
-                             nullable=False, primary_key=True),
-                      Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'), nullable=False,
+                      Column('place_id',
+                             String(60),
+                             ForeignKey('places.id'),
+                             nullable=False,
+                             primary_key=True),
+                      Column('amenity_id',
+                             String(60),
+                             ForeignKey('amenities.id'),
+                             nullable=False,
                              primary_key=True))
 
 
@@ -43,6 +48,7 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    amenity_ids = []
 
     if os.getenv('HBNB_TYPE_STORAGE') == "db":
         review = relationship("Review", backref="place",
@@ -70,12 +76,11 @@ class Place(BaseModel, Base):
                     res.append(value)
             return res
 
-        amenity_ids = []
 
         @amenities.setter
         def amenities(self, obj):
             """Setter attr for adding Amenity.id"""
-            if isinstance(obj, Amenity):
+            if isinstance(obj, models.Amenity):
                 self.amenity_ids.append(obj.id)
             else:
                 pass
