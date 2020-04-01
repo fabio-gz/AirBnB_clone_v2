@@ -11,9 +11,14 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
+import MySQLdb
+from unittest.mock import patch
 
 
+unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db", "NO apply for db")
 class TestDBStorage(unittest.TestCase):
     """This will test the DBStorage"""
-    pass
+    def test_db(self):
+        """test for pass"""
+        pass
