@@ -68,7 +68,6 @@ class TestUser(unittest.TestCase):
         self.user.save()
         self.assertNotEqual(self.user.created_at, self.user.updated_at)
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
     def test_to_dict_User(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.user), True)

@@ -90,7 +90,6 @@ class TestPlace(unittest.TestCase):
         self.assertNotEqual(self.place.created_at, self.place.updated_at)
         self.assertIsInstance(self.place.created_at, datetime.datetime)
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for db")
     def test_to_dict_Place(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.place), True)
