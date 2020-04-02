@@ -91,6 +91,59 @@ class TestFileStorage(unittest.TestCase):
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
 
+    def test_delete_user(self):
+        storage = FileStorage()
+        obj = storage.all()
+        user = User()
+        key = user.__class__.__name__ + "." + str(user.id)
+        storage.delete(user)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
+
+    def test_delete_state(self):
+        storage = FileStorage()
+        obj = storage.all()
+        state = State()
+        key = state.__class__.__name__ + "." + str(state.id)
+        storage.delete(state)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
+
+    def test_delete_city(self):
+        storage = FileStorage()
+        obj = storage.all()
+        city = City()
+        key = city.__class__.__name__ + "." + str(city.id)
+        storage.delete(city)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
+
+    def test_delete_amenity(self):
+        storage = FileStorage()
+        obj = storage.all()
+        amenity = Amenity()
+        key = amenity.__class__.__name__ + "." + str(amenity.id)
+        storage.delete(user)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
+
+    def test_delete_review(self):
+        storage = FileStorage()
+        obj = storage.all()
+        review = Review()
+        key = review.__class__.__name__ + "." + str(Review.id)
+        storage.delete(review)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
+
+    def test_delete_place(self):
+        storage = FileStorage()
+        obj = storage.all()
+        place = Place()
+        key = place.__class__.__name__ + "." + str(place.id)
+        storage.delete(place)
+        obj2 = storage.all()
+        self.assertNotEqual(obj[key], obj2[key])
 
 if __name__ == "__main__":
     unittest.main()
