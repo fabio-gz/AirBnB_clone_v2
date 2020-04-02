@@ -72,7 +72,6 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("quit")
             self.assertEqual('', f.getvalue())
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == "db", "No use for db")
     def test_create(self):
         """Test create command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -89,13 +88,6 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("all User")
             self.assertEqual(
                 "[[User]", f.getvalue()[:7])
-
-        with patch('sys.stdout', new=io.StringIO()) as f:
-            HBNBCommand().onecmd("create chair")
-            self.assertEqual("** class doesn't exist **\n", f.getvalue())
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.consol.onecmd('create City name="Bucaramanga"')
-            self.assertEqual("[[City]", f.getvalue()[:29])
 
     def test_show(self):
         """Test show command inpout"""
@@ -217,7 +209,6 @@ class TestConsole(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == "db", "No use for db")
     def test_update(self):
         """Test alternate destroy command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
