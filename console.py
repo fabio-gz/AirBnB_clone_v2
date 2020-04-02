@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
-
+            dic = {}
             for param in range(1, len(my_list)):
                 # Separete the values and parameters between
                 my_list[param] = my_list[param].replace("=", " ")
@@ -60,7 +60,11 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 # Verificate that have just one value for each param
                 if type(attr[1]) is not tuple:
-                    setattr(obj, attr[0], attr[1])
+                    dic[attr[0]] = attr[1]
+            if dic:
+                obj = eval("{}(**dic)".format(my_list[0]))
+            else:
+                obj = eval("{}()".format(my_list[0]))
 
             obj.save()
             print("{}".format(obj.id))
