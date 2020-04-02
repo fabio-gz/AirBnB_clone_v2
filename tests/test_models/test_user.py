@@ -62,14 +62,17 @@ class TestUser(unittest.TestCase):
         self.assertEqual(type(self.user.first_name), str)
         self.assertEqual(type(self.user.first_name), str)
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
     def test_save_User(self):
         """test if the save works"""
         self.user.save()
         self.assertNotEqual(self.user.created_at, self.user.updated_at)
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
     def test_to_dict_User(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.user), True)
+        self.assertIn('email', self.user.__dict__)
 
 
 if __name__ == "__main__":
