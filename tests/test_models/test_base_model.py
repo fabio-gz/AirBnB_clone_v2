@@ -63,13 +63,14 @@ class TestBaseModel(unittest.TestCase):
         d2 = self.my_model.to_dict()
         self.assertEqual(d['created_at'], d2['created_at'])
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
     def test_to_dict_BaseModel(self):
         """test if dictionary works"""
         base_dict = self.base.to_dict()
         self.assertEqual(self.base.__class__.__name__, 'BaseModel')
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
-
+        self.assertEqual(d['created_at'], self.my_model.created_at.isoformat())
 
 if __name__ == "__main__":
     unittest.main()
