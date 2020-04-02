@@ -45,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
             obj = eval("{}()".format(my_list[0]))
 
             for param in range(1, len(my_list)):
-                # Separete the values and parameters between spaces
+                # Separete the values and parameters between
                 my_list[param] = my_list[param].replace("=", " ")
                 # Take the first param
                 attr = my_list[param].split()
