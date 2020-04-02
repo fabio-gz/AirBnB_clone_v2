@@ -83,15 +83,19 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(type(self.place.longitude), float)
         self.assertEqual(type(self.place.amenity_ids), list)
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for db")
     def test_save_Place(self):
         """test if the save works"""
         self.place.save()
         self.assertNotEqual(self.place.created_at, self.place.updated_at)
+        self.assertIsInstance(self.place.created_at, datetime.datetime)
 
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for db")
     def test_to_dict_Place(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.place), True)
-
+        self.assertIn('name', self.place.__dict__)
+        self.assertIn('user_id', self.place.__dict__)
 
 if __name__ == "__main__":
     unittest.main()
