@@ -53,7 +53,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(isinstance(self.base, BaseModel))
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
-    def test_save_BaesModel(self):
+    def test_save_BaseModel(self):
         """test if the save works"""
         self.base.save()
         self.assertNotEqual(self.base.created_at, self.base.updated_at)
@@ -63,7 +63,6 @@ class TestBaseModel(unittest.TestCase):
         d2 = self.my_model.to_dict()
         self.assertEqual(d['created_at'], d2['created_at'])
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
     def test_to_dict_BaseModel(self):
         """test if dictionary works"""
         base_dict = self.base.to_dict()
