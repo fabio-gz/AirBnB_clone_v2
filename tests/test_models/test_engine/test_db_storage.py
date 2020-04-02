@@ -17,6 +17,8 @@ from unittest.mock import patch
 
 
 unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db", "NO apply for db")
+
+
 class TestDBStorage(unittest.TestCase):
     """This will test the DBStorage"""
     def testPep8(self):

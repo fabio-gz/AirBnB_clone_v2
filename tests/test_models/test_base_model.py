@@ -52,16 +52,10 @@ class TestBaseModel(unittest.TestCase):
         """test if the base is an type BaseModel"""
         self.assertTrue(isinstance(self.base, BaseModel))
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Not for for db")
-    def test_save_BaseModel(self):
+    def test_save_BaesModel(self):
         """test if the save works"""
         self.base.save()
         self.assertNotEqual(self.base.created_at, self.base.updated_at)
-
-        self.my_model.name = 'Vader'
-        self.my_model.save()
-        d2 = self.my_model.to_dict()
-        self.assertEqual(d['created_at'], d2['created_at'])
 
     def test_to_dict_BaseModel(self):
         """test if dictionary works"""
@@ -69,7 +63,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.base.__class__.__name__, 'BaseModel')
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
-        self.assertEqual(d['created_at'], self.my_model.created_at.isoformat())
+
 
 if __name__ == "__main__":
     unittest.main()
