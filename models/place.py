@@ -76,7 +76,6 @@ class Place(BaseModel, Base):
                     res.append(value)
             return res
 
-
         @amenities.setter
         def amenities(self, obj):
             """Setter attr for adding Amenity.id"""
