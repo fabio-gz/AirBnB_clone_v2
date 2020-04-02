@@ -19,6 +19,18 @@ from unittest.mock import patch
 unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != "db", "NO apply for db")
 class TestDBStorage(unittest.TestCase):
     """This will test the DBStorage"""
-    def test_db(self):
-        """test for pass"""
-        pass
+    def testPep8(self):
+        """test for pep8 style"""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(result.total_errors, 0,
+                         'Found code style errors (and warnings).')
+
+    @classmethod
+    def setUpClass(self):
+        """run method priot test"""
+        self.storage = DBStorage()
+
+    def testState(self):
+        state = State(name='California')
+        self.assertEqual(state.name, 'California')
