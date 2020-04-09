@@ -18,7 +18,7 @@ def do_pack():
     try:
         local("tar -cvzf versions/web_static_{}.tgz web_static".
               format(formated))
-        return "versions/web_static_{}".format(formated)
+        return "versions/web_static_{}.tgz".format(formated)
     except:
         return None
 
@@ -49,8 +49,9 @@ def do_deploy(archive_path):
 def deploy():
     """ Full deployment """
     a_path = do_pack()
+    print(a_path)
 
     if not path.exists(a_path):
         return False
-
-    return do_deploy(path)
+    else:
+        return do_deploy(a_path)
