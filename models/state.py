@@ -26,16 +26,9 @@ class State(BaseModel, Base):
             """returns the list of City instances with
             state_id equals to the current State.id
             """
-            objects = models.storage.all()
+            objects = models.storage.all(City)
             my_list = []
-            res = []
-            for key in objects:
-                city = key.replace('.', ' ')
-                city = shlex.split(city)
-                if city[0] == 'City':
-                    my_list.append(objects[key])
-                for i in my_list:
-                    if i.state_id == self.id:
-                        res.append(i)
-
-            return res
+            for key, value in objects.items():
+                if value.state_id == self.id:
+                    my_list.append(value)
+            return my_list
