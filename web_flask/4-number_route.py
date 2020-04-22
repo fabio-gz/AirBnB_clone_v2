@@ -19,7 +19,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def variables(text):
     """print variable"""
-    return 'c {}'.format(escape(text).replace('_', ' '))
+    return 'C {}'.format(escape(text).replace('_', ' '))
 
 
 @app.route('/python', strict_slashes=False)
