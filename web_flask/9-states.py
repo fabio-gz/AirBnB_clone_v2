@@ -10,6 +10,7 @@ def close(error):
     """remove the current SQLAlchemy Session"""
     storage.close()
 
+
 @app.route('/states', strict_slashes=False)
 def states_alone():
     """states"""
