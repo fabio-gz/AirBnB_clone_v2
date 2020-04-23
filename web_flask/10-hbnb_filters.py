@@ -11,11 +11,11 @@ def close(error):
     storage.close()
 
 
-@app.route('/states', strict_slashes=False)
+@app.route('/hbnb_filters', strict_slashes=False)
 def hbnb():
     """filters"""
     states = storage.all('State')
-    amenities = storage.all('Amenities')
+    amenities = storage.all('Amenity')
     return render_template('10-hbnb_filters.html', states=states,
                            amenities=amenities)
 
